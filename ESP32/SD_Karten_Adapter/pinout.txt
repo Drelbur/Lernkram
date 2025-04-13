@@ -1,0 +1,6 @@
+GND = GND
+VCC = 5V
+MISO = P19
+MOSI = P23
+SCK = P18
+CS = P5
