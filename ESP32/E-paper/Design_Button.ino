@@ -13,9 +13,9 @@ U8G2_FOR_ADAFRUIT_GFX u8g2Fonts;
 // Variablen Deklaration
 int buttonState = 0;
 int statusIndex = 0;
-const char* raumStatus[3] = {"Sie können eintreten!", "Bitte nicht Stören!", "Meeting, nicht Stören!"};
+const char* raumStatus[3] = {"Abwesend", "Anwesend", "Bitte nicht Stören!"};
 
-String Raumstatus ="Sie können eintreten!";
+String Raumstatus ="Abwesend";
 String RaumID = "B 128";
 String Bereich = "Geschäftsleitung";
 String Vorname = "Andreas";
@@ -75,7 +75,7 @@ void drawContent() {
   u8g2Fonts.setCursor(250, 300);
   u8g2Fonts.print("Mobil: " + Mobilnummer);
 
-  u8g2Fonts.setCursor(450, 430);
+  u8g2Fonts.setCursor(600, 450);
   u8g2Fonts.print(Raumstatus);
 }
 
@@ -91,32 +91,12 @@ void loop()
     statusIndex = (statusIndex + 1) % 3;
     Raumstatus = raumStatus[statusIndex];
     
-    display.init();
-    
-    // Full-Refresh alle 3 Updates
-    if(++updateCounter % 3 == 0) 
-    {
+      display.init();
       display.setFullWindow();
       display.firstPage();
       do {
         drawContent();
       } while (display.nextPage());
-    }
-    else // Partielles Update
-    {
-      // Korrigierte Fensterparameter (X muss durch 8 teilbar sein)
-      uint16_t x = 248;  // 248 statt 250 (248 % 8 = 0)
-      uint16_t w = 304;  // 304 statt 300 (304 % 8 = 0)
-      
-      display.setPartialWindow(x, 380, w, 50);
-      display.firstPage();
-      do {
-        u8g2Fonts.setFont(u8g2_font_fub20_tf);
-        u8g2Fonts.setForegroundColor(GxEPD_BLACK);
-        u8g2Fonts.setCursor(x + 2, 400); // +2 für ursprüngliche Position
-        u8g2Fonts.print(Raumstatus);
-      } while (display.nextPage());
-    }
     
     display.hibernate();
   }
