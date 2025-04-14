@@ -76,12 +76,20 @@ void drawContent() {
   u8g2Fonts.setCursor(250, 300);
   u8g2Fonts.print("Mobil: " + Mobilnummer);
 
-  u8g2Fonts.setCursor(600, 430);
-  u8g2Fonts.print(Raumstatus);
+  if (statusIndex == 0 || statusIndex == 1) {
+    display.fillRect(570, 400, 200, 45, GxEPD_RED);
+    display.fillRect(572, 402, 196, 41, GxEPD_WHITE);
+  }
+
   if (statusIndex == 2) {
+    display.fillRect(550, 400, 200, 65, GxEPD_RED);
+    display.fillRect(552, 402, 196, 61, GxEPD_WHITE);
     u8g2Fonts.setCursor(560, 460);
     u8g2Fonts.print(raumStatusExtra);
   }
+  
+  u8g2Fonts.setCursor(600, 430);
+  u8g2Fonts.print(Raumstatus);
 }
 
 // Angepasster Code-Ausschnitt
