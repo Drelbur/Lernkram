@@ -13,7 +13,7 @@ U8G2_FOR_ADAFRUIT_GFX u8g2Fonts;
 // Variablen Deklaration
 int buttonState = 0;
 int statusIndex = 0;
-const char* raumStatus[3] = {"Abwesend", "Anwesend", "Bitte nicht Stören!"};
+const char* raumStatus[3] = {"Abwesend", "Anwesend", "Bitte"};
 
 String Raumstatus ="Abwesend";
 String RaumID = "B 128";
@@ -23,6 +23,7 @@ String Nachname = "Kather";
 String Stellung = "Geschäftsführer";
 String Telefonnummer = "+49 30 36502-122";
 String Mobilnummer = "017683387049";
+String raumStatusExtra = "nicht stören!";
 
 void setup() {
   Serial.begin(115200);
@@ -75,8 +76,12 @@ void drawContent() {
   u8g2Fonts.setCursor(250, 300);
   u8g2Fonts.print("Mobil: " + Mobilnummer);
 
-  u8g2Fonts.setCursor(600, 450);
+  u8g2Fonts.setCursor(600, 430);
   u8g2Fonts.print(Raumstatus);
+  if (statusIndex == 2) {
+    u8g2Fonts.setCursor(560, 460);
+    u8g2Fonts.print(raumStatusExtra);
+  }
 }
 
 // Angepasster Code-Ausschnitt
